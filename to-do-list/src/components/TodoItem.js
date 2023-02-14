@@ -34,9 +34,9 @@ const TodoItem = (props) => {
       />
       <div className="content">
         <TextField
+          value={props.todo}
           onChange={handleChangeText}
           name="todo"
-          value={props.todo}
           multiline
           style={{ width: "100%" }}
         />

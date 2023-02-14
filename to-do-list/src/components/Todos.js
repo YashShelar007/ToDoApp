@@ -1,8 +1,9 @@
 import TodoItem from "./TodoItem";
 import { useEffect, useState } from "react";
 import { db } from "../firebase";
-import { collection, onSnapshot } from "firebase/firestore";
-
+import { addDoc, collection, onSnapshot } from "firebase/firestore";
+import { Fab } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
 const Todos = () => {
   const [todos, setTodos] = useState([]);
 
@@ -20,6 +21,12 @@ const Todos = () => {
     getUsers();
   }, []);
 
+  const addTodo = async () => {
+    const docref = await addDoc(collection(db, "todos"), {
+      completed: false,
+      todo: "Add task..",
+    });
+  };
   return (
     <div>
       {todos.map((todoItem) => {
@@ -31,6 +38,11 @@ const Todos = () => {
           />
         );
       })}
+      <div className="add-button" aria-label="add">
+        <Fab color="primary">
+          <AddIcon onClick={addTodo} />
+        </Fab>
+      </div>
     </div>
   );
 };
